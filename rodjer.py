@@ -52,12 +52,12 @@ if answer == 'да':
         sign = choice('+-')
 
         if sign == '-':
-            while number1<number2:
+            while number1 < number2:
                 number1 = randint(1, int(count_to))
                 number2 = randint(1, int(count_to))
 
         if sign == '+':
-                while number1 + number2>count_to:
+                while number1 + number2 > int(count_to):
                     number1 = randint(1, int(count_to))
                     number2 = randint(1, int(count_to))
 
