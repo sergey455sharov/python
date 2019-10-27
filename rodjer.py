@@ -50,22 +50,18 @@ if answer == 'да':
         number1 = randint(1, int(count_to))
         number2 = randint(1, int(count_to))
         sign = choice('+-')
-        if sign =='+':
 
-        while number1<number2:
-            number1 = randint(1, int(count_to))
-            number2 = randint(1, int(count_to))
-            while number1 + number2>count_to:
+        if sign == '-':
+            while number1<number2:
                 number1 = randint(1, int(count_to))
                 number2 = randint(1, int(count_to))
 
-
+        if sign == '+':
+                while number1 + number2>count_to:
+                    number1 = randint(1, int(count_to))
+                    number2 = randint(1, int(count_to))
 
         print(number1, sign, number2)
-
-
-
-
 
 
 
