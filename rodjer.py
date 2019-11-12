@@ -30,19 +30,9 @@ def time_convert(time_in_seconds):
 
     return time_spent
 
-print('Привет меня зовут Роджер, а как тебя?')
-name = input()
-print('Приятно познакомиться ' + name)
-print('''Давай проверим твои знания в математике.
-Ты готов? Ответь "Да" или "Нет" ''')
-answer = input()
 
-while answer not in {'да', 'нет'}:
-    print('''Должно быть 'Да' или 'нет'
-Введи заново''')
-    answer = input()
-if answer == 'да':
-    print('Хорошо давай начнем')
+def count():
+    print('''Давай проверим твои знания в математике''')
 
     question_quantity = ''
     count_to = ''
@@ -115,14 +105,28 @@ if answer == 'да':
             print(f'Правильный ответ: {correct_answer}')
             fails += 1
 
-
-
     if fails == 0:
         print(f'Молодец, {name}, ты верно ответил на все вопросы за {time_convert(time_in_seconds)}')
     else:
         print(f'Ошибок {fails}, а правильных ответов {correct_answers}')
         print(f'Затраченное время: {time_convert(time_in_seconds)}')
 
-else:
-    print('''Передумал, зря!
-Пока!''')
+
+# основной блок программы
+print('Привет меня зовут Роджер, а как тебя?')
+name = input()
+print('Приятно познакомиться ' + name)
+count_again = 'да'
+while  count_again == 'да':
+    count()
+    print('сыграем ещё?')
+    count_again = input()
+    while count_again not in {'да', 'нет'}:
+        print('Должно быть "да" или "нет".')
+        count_again = input()
+print('Пока')
+
+
+
+
+
