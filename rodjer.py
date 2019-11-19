@@ -34,7 +34,17 @@ def time_convert(time_in_seconds):
 
 def select_mode():
     mode = ''
+    if os.path.exists(file_name):
+        print('''Режим:
+        1 - тренировка
+        2 - работ над ошибками''')
+    else:
+        print('''Режим:
+        1 - тренировка
+        ''')
+
     while not mode.isdigit():
+
         print('Выбери режим')
         mode = input()
         while not mode.isdigit():
@@ -128,7 +138,8 @@ def count():
 
 
 def fix_errors():
-    pass
+    print(f'{name} Давай исправим твои ошибки')
+
 
 # основной блок программы
 print('Привет меня зовут Роджер, а как тебя?')
@@ -136,16 +147,20 @@ name = input()
 print('Приятно познакомиться ' + name)
 count_again = 'да'
 file_name = f'{name.lower()}_errors.txt'
-if os.path.exists(file_name):
-    print('''Режим:
-    1 - тренировка
-    2 - работ над ошиюками''')
-    print(select_mode())
-while  count_again == 'да':
-    count()
-    print('сыграем ещё?')
-    count_again = input()
-    while count_again not in {'да', 'нет'}:
-        print('Должно быть "да" или "нет".')
-        count_again = input()
+
+
+
+
+while True:
+
+    mode = select_mode()
+
+    if mode == '1':
+        count()
+    elif mode == '2':
+        fix_errors()
+    else:
+        pass
+
+
 print('Пока')
