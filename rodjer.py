@@ -139,6 +139,31 @@ def count():
 
 def fix_errors():
     print(f'{name} Давай исправим твои ошибки')
+    file_name2 = f'tmp_{file_name}'
+
+    with open(file_name, 'r') as f:
+
+        line = f.readline()
+        splited_line = line.split()
+        number1, sign, number2, try_count = splited_line
+
+        print(f'Сколько будет {number1} {sign} {number2}? ')
+        answer = input()
+        if sign == '-':
+            correct_answer = int(number1) - int(number2)
+        if sign == '+':
+            correct_answer = int(number1) + int(number2)
+
+        with open(file_name2, 'a') as f2:
+            if int(answer) == correct_answer:
+                print('Молодец')
+
+                f2.write(f'{number1} {sign} {number2} {int(try_count)}-1')
+            else:
+                print('Неправильно')
+
+
+
 
 
 # основной блок программы
