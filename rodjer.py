@@ -3,6 +3,11 @@ from random import randint,choice
 from timeit import default_timer
 import os
 
+def warnings():
+    warnings = ['ты не прав', 'ты хорошо подумал?', 'Неправильно', 'Одумайся']
+    return warnings[randint(0, len(warnings)-1)]
+
+
 
 def time_endings(digit):
     digit = str(digit)
@@ -51,6 +56,23 @@ def select_mode():
             print('Должна быть цифра')
             mode = input()
     return mode
+
+def delete_same_rows():
+    uniques = []
+    with open(file_name, 'r') as f, open(f'tmp_{file_name}', 'a') as f2:
+
+        for row in f:
+            splited = row.split()
+            number1, sign, number2, repeat = splited
+            unique = f'{number1} {sign} {number2}'
+            if unique not in uniques:
+                uniques.append(unique)
+
+                f2.write(f'{unique} {repeat}')
+                os.delete(file_name)
+                os.rename(f'tmp_(file_name)', file_name)
+
+
 
 
 def count():
@@ -123,7 +145,7 @@ def count():
             print('Правильно, молодец')
             correct_answers += 1
         else:
-            print('Неправильно')
+            print(warnings())
             print(f'Правильный ответ: {correct_answer}')
             fails += 1
             with open(file_name, 'a') as f:
@@ -160,7 +182,7 @@ def fix_errors():
 
                 f2.write(f'{number1} {sign} {number2} {int(try_count)}-1')
             else:
-                print('Неправильно')
+                print(warnings())
 
 
 
