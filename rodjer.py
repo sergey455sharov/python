@@ -42,10 +42,13 @@ def select_mode():
     if os.path.exists(file_name):
         print('''Режим:
         1 - тренировка
-        2 - работ над ошибками''')
+        2 - работ над ошибками
+        0 - выход
+        ''')
     else:
         print('''Режим:
         1 - тренировка
+        0 - выход
         ''')
 
     while not mode.isdigit():
@@ -57,20 +60,23 @@ def select_mode():
             mode = input()
     return mode
 
+
 def delete_same_rows():
-    uniques = []
-    with open(file_name, 'r') as f, open(f'tmp_{file_name}', 'a') as f2:
+    if os.path.exists(file_name):
+        uniques = []
+        with open(file_name, 'r') as f, open(f'tmp_{file_name}', 'a') as f2:
 
-        for row in f:
-            splited = row.split()
-            number1, sign, number2, repeat = splited
-            unique = f'{number1} {sign} {number2}'
-            if unique not in uniques:
-                uniques.append(unique)
+            for row in f:
+                splited = row.split()
+                number1, sign, number2, repeat = splited
+                unique = f'{number1} {sign} {number2}'
+                if unique not in uniques:
+                    uniques.append(unique)
 
-                f2.write(f'{unique} {repeat}')
-                os.delete(file_name)
-                os.rename(f'tmp_(file_name)', file_name)
+                    f2.write(f'{unique} {repeat}\n')
+
+        os.remove(file_name)
+        os.rename(f'tmp_{file_name}', file_name)
 
 
 
@@ -157,6 +163,8 @@ def count():
         print(f'Ошибок {fails}, а правильных ответов {correct_answers}')
         print(f'Затраченное время: {time_convert(time_in_seconds)}')
 
+    delete_same_rows()
+
 
 
 def fix_errors():
@@ -167,7 +175,7 @@ def fix_errors():
 
         line = f.readline()
         splited_line = line.split()
-        number1, sign, number2, try_count = splited_line
+        number1, sign, number2, repeat = splited_line
 
         print(f'Сколько будет {number1} {sign} {number2}? ')
         answer = input()
@@ -180,9 +188,11 @@ def fix_errors():
             if int(answer) == correct_answer:
                 print('Молодец')
 
-                f2.write(f'{number1} {sign} {number2} {int(try_count)}-1')
+                f2.write(f'{number1} {sign} {number2} {int(repeat)-1}')
             else:
                 print(warnings())
+                os.remove(file_name)
+                os.rename(f'tmp_{file_name}', file_name)
 
 
 
@@ -206,6 +216,8 @@ while True:
         count()
     elif mode == '2':
         fix_errors()
+    elif mode == '0':
+        break
     else:
         pass
 
