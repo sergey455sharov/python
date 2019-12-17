@@ -171,29 +171,35 @@ def fix_errors():
     print(f'{name} Давай исправим твои ошибки')
     file_name2 = f'tmp_{file_name}'
 
-    with open(file_name, 'r') as f:
+    with open(file_name, 'r') as f, open(file_name2, 'a') as f2:
 
-        line = f.readline()
-        splited_line = line.split()
-        number1, sign, number2, repeat = splited_line
+        for line in f:
 
-        print(f'Сколько будет {number1} {sign} {number2}? ')
-        answer = input()
-        if sign == '-':
-            correct_answer = int(number1) - int(number2)
-        if sign == '+':
-            correct_answer = int(number1) + int(number2)
+            splited_line = line.split()
+            number1, sign, number2, repeat = splited_line
 
-        with open(file_name2, 'a') as f2:
-            if int(answer) == correct_answer:
+            print(f'Сколько будет {number1} {sign} {number2}? ')
+            answer = input()
+
+            if sign == '-':
+                correct_answer = int(number1) - int(number2)
+            if sign == '+':
+                correct_answer = int(number1) + int(number2)
+
+            if correct_answer == int(answer):
                 print('Молодец')
 
-                f2.write(f'{number1} {sign} {number2} {int(repeat)-1}')
-            else:
-                print(warnings())
-                os.remove(file_name)
-                os.rename(f'tmp_{file_name}', file_name)
+                if int(repeat) > 1:
+                    f2.write(f'{number1} {sign} {number2} {int(repeat) - 1}\n')
+                else:
+                    print(warnings())
+                    f2.write(f'{number1} {sign} {number2} {repeat}\n')
 
+    print('Ошибок нет, ты справился')
+    os.remove(file_name)
+    os.rename(f'tmp_{file_name}', file_name)
+
+# удалим старый файл
 
 
 
